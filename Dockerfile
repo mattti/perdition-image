@@ -9,10 +9,9 @@ ENV DOMAIN_TARGET_HOST_PAIR=""
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
 
-RUN apt-get update \
-	&& apt-get install -y vim perdition rsyslog\
-	&& apt-get --purge -y remove 'exim4*'
-
+RUN apk add --update --no-cache \
+	perdition \
+	rsyslog
 
 RUN chmod +x /srv/entrypoint.sh
 
