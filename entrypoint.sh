@@ -6,8 +6,6 @@ setDomainAndTargetIMAPHost (){
 	TARGET_IMAP_HOST="$(echo -e "${values[1]}" | tr -d '[:space:]')"
 }
 
-#Erstellen der Domänenabhängigen Konfigurationen
-##############################
 
 param=DOMAIN_TARGET_IMAPHOST_PAIR
 counter=1
@@ -26,12 +24,7 @@ while [ ! -z ${!pair} ]; do
         pair="$param$counter"
 done
 
-#Starten von perdition
-echo "Start Perdition"
-#perdition.imap4 -l 143 -M /usr/lib/libperditiondb_posix_regex.so.0 -m /etc/perdition/popmap.re -P IMAP4 -b 0.0.0.0 -f "" --log_facility /var/log/perdition.log
-
-
-
+echo "start perdition...."
 /usr/sbin/perdition.imap4 --listen_port 143 \
 						--map_library /usr/lib/libperditiondb_posix_regex.so.0 \
 						--map_library_opt /etc/perdition/popmap.re \
@@ -41,6 +34,4 @@ echo "Start Perdition"
 						--connection_logging \
 						--log_facility=- \
 						--no_daemon \
-						--ssl_mode=none
-
-#tail -f /var/log/mail.log
+						--ssl_mode=none  2>&1 |  tee /var/log/perdition.log
