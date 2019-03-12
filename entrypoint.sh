@@ -1,9 +1,9 @@
 #!/bin/bash
 
 setDomainAndTargetIMAPHost (){
-	IFS=',' read -r -a array <<< $1
-	DOMAIN="$(echo -e "${array[0]}" | tr -d '[:space:]')"
-	TARGET_IMAP_HOST="$(echo -e "${array[1]}" | tr -d '[:space:]')"
+	values=(${1//,/ })
+	DOMAIN="$(echo -e "${values[0]}" | tr -d '[:space:]')"
+	TARGET_IMAP_HOST="$(echo -e "${values[1]}" | tr -d '[:space:]')"
 }
 
 #Erstellen der Domänenabhängigen Konfigurationen
@@ -29,7 +29,7 @@ done
 # add empty line at the end of the file
 echo "" /etc/perdition/popmap.re
 
-cp /srv/template/perdition/perdition.conf /etc/perdition/perdition.conf
+cp /srv/templates/perdition/perdition.conf /etc/perdition/perdition.conf
 
 #Starten von perdition
 echo "Starte Perdition"

@@ -11,7 +11,8 @@ ADD templates /srv/templates
 
 RUN apk add --update --no-cache \
 	perdition \
-	rsyslog
+	rsyslog \
+	bash
 
 RUN chmod +x /srv/entrypoint.sh
 
