@@ -1,4 +1,4 @@
-FROM alpine:3.9.2
+FROM debian:7.11-slim
 
 LABEL meteorIT GbR Marcus Kastner
 
@@ -9,10 +9,9 @@ ENV DOMAIN_TARGET_HOST_PAIR=""
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
 
-RUN apk add --update --no-cache \
+RUN apt update && apt install -y \
 	perdition \
-	rsyslog \
-	bash
+	rsyslog
 
 RUN chmod +x /srv/entrypoint.sh
 
