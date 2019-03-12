@@ -6,7 +6,6 @@ setDomainAndTargetIMAPHost (){
 	TARGET_IMAP_HOST="$(echo -e "${array[1]}" | tr -d '[:space:]')"
 }
 
-
 #Erstellen der Domänenabhängigen Konfigurationen
 ##############################
 
