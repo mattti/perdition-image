@@ -9,7 +9,7 @@ ENV DOMAIN_TARGET_HOST_PAIR=""
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
 	perdition \
 	rsyslog
 
