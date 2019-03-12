@@ -1,44 +1,36 @@
 #!/bin/bash
 
+setDomainAndTargetIMAPHost (){
+	IFS=',' read -r -a array <<< $1
+	DOMAIN="$(echo -e "${array[0]}" | tr -d '[:space:]')"
+	TARGET_IMAP_HOST="$(echo -e "${array[1]}" | tr -d '[:space:]')"
+}
+
+
 #Erstellen der Domänenabhängigen Konfigurationen
-if [ ! -z $DOMAIN_1 ] && [ ! -z $KOPANO_HOST_1 ]; then
-		echo "^(.*)@'"${DOMAIN_1}"': ${KOPANO_HOST_1}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_1 registriert"
-fi
-if [ ! -z $DOMAIN_2 ] && [ ! -z $KOPANO_HOST_2 ]; then
-		echo "^(.*)@'"${DOMAIN_2}"': ${KOPANO_HOST_2}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_2 registriert"
-fi
-if [ ! -z $DOMAIN_3 ] && [ ! -z $KOPANO_HOST_3 ]; then
-        echo $DOMAIN_3 "lmtp:["${KOPANO_HOST_3}"]:2003" >> /etc/postfix/transport
-		echo "$DOMAIN_3 registriert"
-fi
-if [ ! -z $DOMAIN_4 ] && [ ! -z $KOPANO_HOST_4 ]; then
-		echo "^(.*)@'"${DOMAIN_4}"': ${KOPANO_HOST_4}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_4 registriert"
-fi
-if [ ! -z $DOMAIN_5 ] && [ ! -z $KOPANO_HOST_5 ]; then
-		echo "^(.*)@'"${DOMAIN_5}"': ${KOPANO_HOST_5}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_5 registriert"
-fi
-if [ ! -z $DOMAIN_6 ] && [ ! -z $KOPANO_HOST_6 ]; then
-		echo "^(.*)@'"${DOMAIN_6}"': ${KOPANO_HOST_6}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_6 registriert"
-fi
-if [ ! -z $DOMAIN_7 ] && [ ! -z $KOPANO_HOST_7 ]; then
-		echo "^(.*)@'"${DOMAIN_7}"': ${KOPANO_HOST_7}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_7 registriert"
-fi
-if [ ! -z $DOMAIN_8 ] && [ ! -z $KOPANO_HOST_8 ]; then
-		echo "^(.*)@'"${DOMAIN_8}"': ${KOPANO_HOST_8}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_8 registriert"
-fi
-if [ ! -z $DOMAIN_9 ] && [ ! -z $KOPANO_HOST_9 ]; then
-		echo "^(.*)@'"${DOMAIN_9}"': ${KOPANO_HOST_9}" >> /etc/perdition/popmap.re
-		echo "$DOMAIN_9 registriert"
-fi
+##############################
+
+param=DOMAIN_TARGET_IMAPHOST_PAIR
+counter=1
+pair="$param$counter"
+
+# get all defined pairs
+while [ ! -z ${!pair} ]; do
+
+		# parse DOMAIN and TARGET_IMAP_HOST
+		setDomainAndTargetIMAPHost ${!pair}
+		echo "^(.*)@'"${DOMAIN}"': ${TARGET_IMAP_HOST}" >> /etc/perdition/popmap.re
+		echo "Domain: "  $DOMAIN " with Host: " $TARGET_IMAP_HOST " registered"
+
+		# generate next pair
+        counter=$((counter+1))
+        pair="$param$counter"
+done
+
+# add empty line at the end of the file
 echo "" /etc/perdition/popmap.re
-mv /tmp/template/perdition/perdition.conf /etc/perdition/perdition.conf
+
+cp /srv/template/perdition/perdition.conf /etc/perdition/perdition.conf
 
 #Starten von perdition
 echo "Starte Perdition"
