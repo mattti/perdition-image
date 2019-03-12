@@ -19,7 +19,7 @@ while [ ! -z ${!pair} ]; do
 		# parse DOMAIN and TARGET_IMAP_HOST
 		setDomainAndTargetIMAPHost ${!pair}
 		echo "^(.*)@'"${DOMAIN}"': ${TARGET_IMAP_HOST}" >> /etc/perdition/popmap.re
-		echo "Domain: "  $DOMAIN " with Host: " $TARGET_IMAP_HOST " registered"
+		echo "Registered:" $DOMAIN "-->" $TARGET_IMAP_HOST
 
 		# generate next pair
         counter=$((counter+1))
@@ -29,10 +29,10 @@ done
 # add empty line at the end of the file
 echo "" /etc/perdition/popmap.re
 
-cp /srv/templates/perdition/perdition.conf /etc/perdition/perdition.conf
+cp /srv/templates/perdition.conf /etc/perdition/perdition.conf
 
 #Starten von perdition
-echo "Starte Perdition"
+echo "Start Perdition"
 service rsyslog start
 service perdition start
 #perdition.imap4 -l 143 -M /usr/lib/libperditiondb_posix_regex.so.0 -m /etc/perdition/popmap.re -P IMAP4 -b 0.0.0.0 -f "" --log_facility /var/log/perdition.log
