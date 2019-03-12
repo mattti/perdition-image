@@ -4,14 +4,13 @@ LABEL meteorIT GbR Marcus Kastner
 
 EXPOSE 143
 
-ENV DOMAIN_TARGET_HOST_PAIR=""
+ENV DOMAIN_TARGET_HOST_PAIR1=""
 
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	perdition \
-	rsyslog
+	perdition
 
 RUN chmod +x /srv/entrypoint.sh
 

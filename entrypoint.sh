@@ -26,18 +26,21 @@ while [ ! -z ${!pair} ]; do
         pair="$param$counter"
 done
 
-# add empty line at the end of the file
-echo "" /etc/perdition/popmap.re
-
-cp /srv/templates/perdition.conf /etc/perdition/perdition.conf
-
 #Starten von perdition
 echo "Start Perdition"
-service rsyslog start
-service perdition start
 #perdition.imap4 -l 143 -M /usr/lib/libperditiondb_posix_regex.so.0 -m /etc/perdition/popmap.re -P IMAP4 -b 0.0.0.0 -f "" --log_facility /var/log/perdition.log
 
-#perdition.imap4 -l 143 -M /usr/lib/libperditiondb_posix_regex.so.0 -m /etc/perdition/popmap.re -P IMAP4 -b 0.0.0.0 -f "" --log_facility /var/log/perdition.log -C --ssl_mode=none
 
 
-tail -f /var/log/mail.log
+/usr/sbin/perdition.imap4 --listen_port 143 \
+						--map_library /usr/lib/libperditiondb_posix_regex.so.0 \
+						--map_library_opt /etc/perdition/popmap.re \
+						--protocol IMAP4  \
+						--bind_address 0.0.0.0 \
+						--config_file "" \
+						--connection_logging \
+						--log_facility=- \
+						--no_daemon \
+						--ssl_mode=none
+
+#tail -f /var/log/mail.log
