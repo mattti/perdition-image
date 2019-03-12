@@ -35,6 +35,8 @@ perdition.imap4 --listen_port 143 \
 			--log_facility=- \
 			--no_daemon \
 			--ssl_mode=tls_listen_force \
+			--ssl_listen_min_proto_version=tlsv1.1 \
+			--ssl_listen_ciphers="kEECDH:+kEECDH+SHA:kEDH:+kEDH+SHA:+kEDH+CAMELLIA:kECDH:+kECDH+SHA:kRSA:+kRSA+SHA:+kRSA+CAMELLIA:!aNULL:!eNULL:!SSLv2:!RC4:!MD5:!DES:!EXP:!SEED:!IDEA:!3DES" \
 			-ssl_cert_file=/srv/certs/cert.pem \
 			--ssl_key_file=/srv/certs/privkey.pem \
-			--ssl_listen_ciphers="kEECDH:+kEECDH+SHA:kEDH:+kEDH+SHA:+kEDH+CAMELLIA:kECDH:+kECDH+SHA:kRSA:+kRSA+SHA:+kRSA+CAMELLIA:!aNULL:!eNULL:!SSLv2:!RC4:!MD5:!DES:!EXP:!SEED:!IDEA:!3DES" 2>&1 |  tee /var/log/perdition.log
+			--ssl_ca_chain_file=/srv/certs/chain.pem 2>&1 |  tee /var/log/perdition.log
