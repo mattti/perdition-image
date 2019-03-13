@@ -34,7 +34,7 @@ perdition.imap4 --listen_port 143 \
 			--connection_logging \
 			--log_facility=- \
 			--no_daemon \
-			--ssl_mode=tls_listen_force \
+			--ssl_mode=tls_listen \
 			--ssl_listen_ciphers="kEECDH:+kEECDH+SHA:kEDH:+kEDH+SHA:+kEDH+CAMELLIA:kECDH:+kECDH+SHA:kRSA:+kRSA+SHA:+kRSA+CAMELLIA:!aNULL:!eNULL:!SSLv2:!RC4:!MD5:!DES:!EXP:!SEED:!IDEA:!3DES" \
 			--ssl_cert_file=/srv/certs/cert.pem \
 			--ssl_key_file=/srv/certs/privkey.pem \
