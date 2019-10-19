@@ -1,4 +1,4 @@
-FROM debian:7.11-slim
+FROM debian:10.1-slim
 
 LABEL meteorIT GbR Marcus Kastner
 EXPOSE 143
