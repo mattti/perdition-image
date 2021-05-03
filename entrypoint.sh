@@ -26,6 +26,7 @@ done
 
 #generate dh-param file
 openssl dhparam -out /tmp/dhparam.pem 1024
+chmod 777  /tmp/dhparam.pem
 
 echo "start perdition...."
 perdition.imap4 --listen_port 143 \
