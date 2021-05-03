@@ -4,7 +4,10 @@ LABEL meteorIT GbR Marcus Kastner
 EXPOSE 143
 VOLUME /srv/certs
 
-ENV DOMAIN_TARGET_IMAPHOST_PAIR1=""
+ENV DOMAIN_TARGET_IMAPHOST_PAIR1="" \
+    CERT_PATH="/srv/certs" \
+    CERT_FILE="cert.pem" \
+    KEY_FILE="privkey.pem"
 
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
