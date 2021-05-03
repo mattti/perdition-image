@@ -12,7 +12,7 @@ ENV DOMAIN_TARGET_IMAPHOST_PAIR1="" \
 ADD entrypoint.sh /srv
 ADD templates /srv/templates
 
-RUN apt-get update && apt-get install -y --no-install-recommends perdition
+RUN apt-get update && apt-get install -y --no-install-recommends perdition openssl
 RUN chmod +x /srv/entrypoint.sh
 
 ENTRYPOINT ["/srv/entrypoint.sh"]

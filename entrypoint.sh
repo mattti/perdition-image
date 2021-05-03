@@ -24,6 +24,9 @@ while [ ! -z ${!pair} ]; do
         pair="$param$counter"
 done
 
+#generate dh-param file
+openssl dhparam -out /tmp/dhparam.pem 1024
+
 echo "start perdition...."
 perdition.imap4 --listen_port 143 \
 			--map_library /usr/lib/libperditiondb_posix_regex.so.0 \
@@ -37,4 +40,5 @@ perdition.imap4 --listen_port 143 \
 			--ssl_mode=tls_listen \
 			--ssl_listen_ciphers="kEECDH:+kEECDH+SHA:kEDH:+kEDH+SHA:+kEDH+CAMELLIA:kECDH:+kECDH+SHA:kRSA:+kRSA+SHA:+kRSA+CAMELLIA:!aNULL:!eNULL:!SSLv2:!RC4:!MD5:!DES:!EXP:!SEED:!IDEA:!3DES" \
 			--ssl_cert_file=${CERT_PATH}/${CERT_FILE} \
-			--ssl_key_file=${CERT_PATH}/${KEY_FILE}  2>&1 |  tee /var/log/perdition.log
+			--ssl_key_file=${CERT_PATH}/${KEY_FILE} \
+			--ssl_dh_params_file=/tmp/dhparam.pem   2>&1 |  tee /var/log/perdition.log
