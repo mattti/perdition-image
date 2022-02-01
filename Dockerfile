@@ -1,7 +1,7 @@
 FROM debian:10.1-slim
 
 LABEL meteorIT GbR Marcus Kastner
-EXPOSE 143
+EXPOSE 143 993
 VOLUME /srv/certs
 
 ENV DOMAIN_TARGET_IMAPHOST_PAIR1="" \
