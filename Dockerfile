@@ -1,4 +1,4 @@
-FROM debian:10.1-slim
+FROM debian:bookworm-slim
 
 LABEL meteorIT GbR Marcus Kastner
 EXPOSE 143 993
