@@ -30,7 +30,7 @@ chmod 777  /tmp/dhparam.pem
 
 echo "start perdition...."
 perdition.imap4 --listen_port 143 \
-			--map_library /usr/lib/libperditiondb_posix_regex.so.0 \
+			--map_library /usr/lib/x86_64-linux-gnu/libperditiondb_posix_regex.so.0 \
 			--map_library_opt /etc/perdition/popmap.re \
 			--protocol IMAP4  \
 			--bind_address 0.0.0.0 \
